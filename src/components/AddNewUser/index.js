@@ -5,10 +5,13 @@ import { Dialog, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
-import { addNewUserFormControls, formControls } from "@/utils";
+import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
 
 const AddNewUser = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [addNewUserFormData, setAddNewUserFormData] = useState(
+    addNewUserFormInitialState
+  );
   return (
     <div>
       <Button
@@ -35,6 +38,8 @@ const AddNewUser = () => {
                   id={controlItem.name}
                   name={controlItem.name}
                   placeholder={controlItem.placeholder}
+                  type={controlItem.type}
+                  value={addNewUserFormData[controlItem.name]}
                   className="col-span-3"
                 />
               </div>
