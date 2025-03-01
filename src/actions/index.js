@@ -1,6 +1,5 @@
 import connectToDB from "@/database";
 import User from "@/models/user";
-import { NextResponse } from "next/server";
 
 // Add new user action
 export const addNewUserAction = async (formData) => {
@@ -20,9 +19,9 @@ export const addNewUserAction = async (formData) => {
     }
   } catch (error) {
     console.log(error);
-    return NextResponse.json({
+    return {
       success: false,
       message: "Something went wrong! Try again later",
-    });
+    };
   }
 };

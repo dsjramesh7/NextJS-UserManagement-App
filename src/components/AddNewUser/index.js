@@ -18,7 +18,7 @@ const AddNewUser = () => {
   const [addNewUserFormData, setAddNewUserFormData] = useState(
     addNewUserFormInitialState
   );
-  // console.log(addNewUserFormData);
+  console.log(addNewUserFormData);
 
   const handleSaveDisabled = () => {
     return Object.keys(addNewUserFormData).every(
@@ -27,7 +27,7 @@ const AddNewUser = () => {
   };
 
   // adding the data from form
-  const handleAddNewUserAction = async () => {
+  const handleAddNewUserAction = async (e) => {
     const result = await addNewUserAction(addNewUserFormData);
     console.log(result);
   };
@@ -81,7 +81,7 @@ const AddNewUser = () => {
                 disabled={!handleSaveDisabled()}
                 type="submit"
               >
-                Save changes
+                Save
               </Button>
             </DialogFooter>
           </form>
