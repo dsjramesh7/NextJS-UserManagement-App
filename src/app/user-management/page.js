@@ -1,6 +1,9 @@
+import { fetchUserAction } from "@/actions";
 import AddNewUser from "@/components/AddNewUser";
 
-const UserManagementPage = () => {
+const UserManagementPage = async () => {
+  const listOfAllUsers = await fetchUserAction();
+  console.log(listOfAllUsers);
   return (
     <div className="bg-black min-h-screen text-white">
       <div className="p-20 max-w-6xl mx-auto">

@@ -27,3 +27,23 @@ export const addNewUserAction = async (formData) => {
     };
   }
 };
+
+//fetch user action
+export const fetchUserAction = async () => {
+  try {
+    await connectToDB();
+    const listOfUsers = await User.find({});
+    if (listOfUsers) {
+      return {
+        success: true,
+        data: JSON.parse(JSON.stringify(listOfUsers)),
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong! Try again later2",
+    };
+  }
+};
