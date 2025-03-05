@@ -49,3 +49,29 @@ export const fetchUserAction = async () => {
     };
   }
 };
+
+//delete user action
+export const deleteUserAction = async (currentUserId, pathTorevalidate) => {
+  try {
+    await connectToDB();
+    const deletedUser = await User.findByIdAndDelete(currentUserId);
+    if (deletedUser) {
+      revalidatePath(pathTorevalidate);
+      return {
+        success: true,
+        message: "User deleted Successfully",
+      };
+    } else {
+      return {
+        success: false,
+        message: "Couldn't able to delete user try again",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong while deleing...",
+    };
+  }
+};

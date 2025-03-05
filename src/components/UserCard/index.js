@@ -1,9 +1,15 @@
+"use client";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash } from "lucide-react";
+import { deleteUserAction } from "@/actions";
 
-const UserCard = ({ firstName, email, lastName, address }) => {
+const UserCard = ({ id, firstName, email, lastName, address }) => {
+  const handleDeleteUser = async (getCurrentUserId) => {
+    const result = await deleteUserAction(getCurrentUserId, "/user-management");
+    return result;
+  };
   return (
     <Card className="w-full max-w-sm p-4 rounded-2xl shadow-lg bg-white dark:bg-gray-900">
       <CardHeader>
@@ -22,7 +28,13 @@ const UserCard = ({ firstName, email, lastName, address }) => {
           <Button variant="outline" size="sm">
             <Pencil className="w-4 h-4 mr-2" /> Edit
           </Button>
-          <Button variant="destructive" size="sm">
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => {
+              handleDeleteUser(id);
+            }}
+          >
             <Trash className="w-4 h-4 mr-2" /> Delete
           </Button>
         </div>
