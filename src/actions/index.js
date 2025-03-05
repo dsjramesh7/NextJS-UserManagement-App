@@ -1,14 +1,16 @@
 "use server";
 import connectToDB from "@/database";
 import User from "@/models/user";
+import { revalidatePath } from "next/cache";
 
 // Add new user action
-export const addNewUserAction = async (formData) => {
-  console.log("formData", formData);
+export const addNewUserAction = async (formData, pathTorevalidate) => {
+  // console.log("formData", formData);
   try {
     await connectToDB();
     const newlyCreatedUser = await User.create(formData);
     if (newlyCreatedUser) {
+      revalidatePath(pathTorevalidate);
       return {
         success: true,
         message: "User created successfully",

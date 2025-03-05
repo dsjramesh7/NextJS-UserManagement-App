@@ -28,7 +28,10 @@ const AddNewUser = () => {
 
   // adding the data from form
   const handleAddNewUserAction = async (e) => {
-    const result = await addNewUserAction(addNewUserFormData);
+    const result = await addNewUserAction(
+      addNewUserFormData,
+      "/user-management"
+    );
     console.log(result);
   };
   return (
