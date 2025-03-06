@@ -40,7 +40,7 @@ const AddNewUser = () => {
             "/user-management"
           )
         : await addNewUserAction(addNewUserFormData, "/user-management");
-    // console.log(result);
+    console.log("result", result);
     setOpenDialog(false);
     setAddNewUserFormData(addNewUserFormInitialState);
     setEditUserId(null);

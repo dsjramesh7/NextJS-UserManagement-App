@@ -87,7 +87,9 @@ export const editUserAction = async (
   const { firstName, lastName, email, address } = formData;
   try {
     const getUserId = await User.findOneAndUpdate(
-      getCurrentUserId,
+      {
+        _id: getCurrentUserId,
+      },
       {
         firstName,
         lastName,
