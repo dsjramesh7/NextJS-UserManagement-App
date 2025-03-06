@@ -75,3 +75,27 @@ export const deleteUserAction = async (currentUserId, pathTorevalidate) => {
     };
   }
 };
+
+//edit user action
+export const editUserAction = async () => {
+  try {
+    await connectToDB();
+    const getUserId = await User.findByIdAndUpdate();
+    if (getUserId) {
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+        message: "User Id not found",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong!",
+    };
+  }
+};
