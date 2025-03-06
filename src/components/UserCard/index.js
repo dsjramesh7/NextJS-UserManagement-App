@@ -15,7 +15,7 @@ const UserCard = ({ id, firstName, email, lastName, address }) => {
     setEditUserId,
     editUserId,
   } = useContext(UserContext);
-  console.log(addNewUserFormData);
+  // console.log(addNewUserFormData);
   const handleDeleteUser = async (getCurrentUserId) => {
     const result = await deleteUserAction(getCurrentUserId, "/user-management");
     return result;

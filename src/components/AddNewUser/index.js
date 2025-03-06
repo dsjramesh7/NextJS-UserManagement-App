@@ -10,7 +10,7 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
-import { addNewUserAction } from "@/actions";
+import { addNewUserAction, editUserAction } from "@/actions";
 import { useContext } from "react";
 import { UserContext } from "@/context";
 
@@ -23,7 +23,7 @@ const AddNewUser = () => {
     editUserId,
     setEditUserId,
   } = useContext(UserContext);
-  console.log(addNewUserFormData);
+  // console.log(addNewUserFormData);
   const handleSaveDisabled = () => {
     return Object.keys(addNewUserFormData).every(
       (key) => addNewUserFormData[key].trim() !== ""
@@ -32,11 +32,18 @@ const AddNewUser = () => {
 
   // adding the data from form
   const handleAddNewUserAction = async (e) => {
-    const result = await addNewUserAction(
-      addNewUserFormData,
-      "/user-management"
-    );
-    console.log(result);
+    const result =
+      editUserId !== null
+        ? await editUserAction(
+            editUserId,
+            addNewUserFormData,
+            "/user-management"
+          )
+        : await addNewUserAction(addNewUserFormData, "/user-management");
+    // console.log(result);
+    setOpenDialog(false);
+    setAddNewUserFormData(addNewUserFormInitialState);
+    setEditUserId(null);
   };
   return (
     <div>

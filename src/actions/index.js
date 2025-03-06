@@ -22,7 +22,7 @@ export const addNewUserAction = async (formData, pathTorevalidate) => {
       };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       success: false,
       message: "Something went wrong! Try again later2",
@@ -42,7 +42,7 @@ export const fetchUserAction = async () => {
       };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       success: false,
       message: "Something went wrong! Try again later2",
@@ -68,7 +68,7 @@ export const deleteUserAction = async (currentUserId, pathTorevalidate) => {
       };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       success: false,
       message: "Something went wrong while deleing...",
@@ -77,13 +77,30 @@ export const deleteUserAction = async (currentUserId, pathTorevalidate) => {
 };
 
 //edit user action
-export const editUserAction = async () => {
+export const editUserAction = async (
+  getCurrentUserId,
+  formData,
+  pathToRevalidate
+) => {
+  // console.log("formDataedit", formData);
+  await connectToDB();
+  const { firstName, lastName, email, address } = formData;
   try {
-    await connectToDB();
-    const getUserId = await User.findByIdAndUpdate();
+    const getUserId = await User.findOneAndUpdate(
+      getCurrentUserId,
+      {
+        firstName,
+        lastName,
+        email,
+        address,
+      },
+      { new: true }
+    );
     if (getUserId) {
+      revalidatePath(pathToRevalidate);
       return {
         success: true,
+        message: "User updated successfully",
       };
     } else {
       return {
@@ -92,7 +109,7 @@ export const editUserAction = async () => {
       };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       success: false,
       message: "Something went wrong!",

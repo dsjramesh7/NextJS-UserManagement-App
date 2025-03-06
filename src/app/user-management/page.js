@@ -4,7 +4,7 @@ import UserCard from "@/components/UserCard";
 
 const UserManagementPage = async () => {
   const getListOfAllUsers = await fetchUserAction();
-  console.log(getListOfAllUsers);
+  // console.log(getListOfAllUsers);
 
   return (
     <div className="bg-gray-900 min-h-screen text-white ">
