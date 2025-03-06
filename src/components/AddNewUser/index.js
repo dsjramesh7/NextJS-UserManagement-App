@@ -9,17 +9,21 @@ import {
 } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useState } from "react";
 import { addNewUserFormControls, addNewUserFormInitialState } from "@/utils";
 import { addNewUserAction } from "@/actions";
+import { useContext } from "react";
+import { UserContext } from "@/context";
 
 const AddNewUser = () => {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [addNewUserFormData, setAddNewUserFormData] = useState(
-    addNewUserFormInitialState
-  );
+  const {
+    setAddNewUserFormData,
+    addNewUserFormData,
+    setOpenDialog,
+    openDialog,
+    editUserId,
+    setEditUserId,
+  } = useContext(UserContext);
   console.log(addNewUserFormData);
-
   const handleSaveDisabled = () => {
     return Object.keys(addNewUserFormData).every(
       (key) => addNewUserFormData[key].trim() !== ""
@@ -47,11 +51,14 @@ const AddNewUser = () => {
         onOpenChange={() => {
           setOpenDialog(false);
           setAddNewUserFormData(addNewUserFormInitialState);
+          setEditUserId(null);
         }}
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add New User</DialogTitle>
+            <DialogTitle>
+              {editUserId !== null ? "Edit User" : "Add New User"}
+            </DialogTitle>
           </DialogHeader>
           <form action={handleAddNewUserAction} className="grid gap-4 py-4">
             {addNewUserFormControls.map((controlItem) => (
